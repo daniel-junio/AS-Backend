@@ -37,49 +37,6 @@ namespace Backend.Controllers
             return x;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Agendamento>> GetAgendamento(Guid id)
-        {
-            var agendamento = await _context.Agendamentos.FindAsync(id);
-            
-            if (agendamento == null)
-            {
-                return NotFound();
-            }
-
-            return  agendamento;
-        }
-
-        
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAgendamento(Guid id, Agendamento agendamento)
-        {
-            if (id != agendamento.Id)
-            {
-                return BadRequest("Erro");
-            }
-
-            _context.Entry(agendamento).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AgendamentoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         
         [HttpPost("criar")]
         public  ActionResult CriarAgendamento(AgendamentoDTO agendamento)
@@ -89,36 +46,8 @@ namespace Backend.Controllers
                 return Ok();
             }
             return BadRequest();
-
-            /*
-             
-             criar uma classe agendamentoDTO
-
-             criar uma classe agendamentoAdapter
-
-             */
-
         }
 
-        // DELETE: api/Agendamentos/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Agendamento>> DeleteAgendamento(Guid id)
-        {
-            var agendamento = await _context.Agendamentos.FindAsync(id);
-            if (agendamento == null)
-            {
-                return NotFound();
-            }
-
-            _context.Agendamentos.Remove(agendamento);
-            await _context.SaveChangesAsync();
-
-            return agendamento;
-        }
-
-        private bool AgendamentoExists(Guid id)
-        {
-            return _context.Agendamentos.Any(e => e.Id == id);
-        }
+        
     }
 }
