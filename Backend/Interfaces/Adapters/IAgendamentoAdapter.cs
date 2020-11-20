@@ -1,0 +1,14 @@
+﻿using Backend.DTOs;
+using Backend.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Backend.Interfaces.Adapters
+{
+    public interface IAgendamentoAdapter
+    {
+        Agendamento Adapt(AgendamentoDTO agendamentoDTO);
+    }
+}
